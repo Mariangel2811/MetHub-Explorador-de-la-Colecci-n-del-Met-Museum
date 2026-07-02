@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Vitrae — explorá, filtrá y compará obras de la colección del Metropolitan Museum of Art.">
   <title>Vitrae — Explorador de la Colección del Met</title>
-  
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
+  <!-- La NavBar es un Custom Element persistente en todas las vistas -->
+  <nav-bar></nav-bar>
 
   <!-- Contenedor único donde el router inyecta la vista activa -->
   <main id="view-container" class="view-container">
@@ -22,7 +25,21 @@
     </p>
   </footer>
 
+  <!-- Capa de datos -->
+  <script src="js/api.js"></script>
 
+  <!-- Componentes globales -->
+  <script src="js/components/loading-state.js"></script>
+  <script src="js/components/error-state.js"></script>
+  <script src="js/components/artwork-card.js"></script>
+
+  <!-- Vistas (cada una expone su función renderXxxView en window) -->
+  <script src="js/view-helpers.js"></script>
+  <script src="js/views/view-home.js"></script>
+  <script src="js/views/view-departments.js"></script>
+  <script src="js/views/view-artist.js"></script>
+  <script src="js/views/view-compare.js"></script>
+  
 
   <!-- Router -->
   <script src="js/router.js"></script>
