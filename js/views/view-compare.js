@@ -77,7 +77,7 @@ function _buildComparePanel(label, signal, onSelectionChanged) {
   let lastDisabledId = null;
   let searchRequestId = 0;
   let debounceTimer = null;
-  let lastCascadeArtworks = []; // para poder refrescar el disabled sin re-buscar
+  let lastCascadeArtworks = [];
 
   _renderSearchMode();
 
@@ -175,6 +175,25 @@ function _buildComparePanel(label, signal, onSelectionChanged) {
     const preview = document.createElement('div');
     preview.className = 'compare-selected-preview';
 
+    // NUEVO: Atributos y estilos para que la vista previa actúe como botón
+    preview.style.cursor = 'pointer';
+    preview.tabIndex = 0;
+    preview.setAttribute('role', 'button');
+    preview.setAttribute('aria-label', `Ver detalles de ${currentArtwork.title || 'esta obra'}`);
+
+    // NUEVO: Redirección al hacer click a la vista de detalle
+    preview.addEventListener('click', () => {
+      window.appRouter.navigate(`detail/${currentArtwork.objectID}`);
+    });
+
+    // NUEVO: Soporte para accesibilidad mediante teclado (Enter o Espacio)
+    preview.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        window.appRouter.navigate(`detail/${currentArtwork.objectID}`);
+      }
+    });
+
     const frame = document.createElement('div');
     frame.className = 'artwork-frame compare-selected-frame';
     const img = document.createElement('img');
@@ -211,10 +230,6 @@ function _buildComparePanel(label, signal, onSelectionChanged) {
     getArtwork: () => currentArtwork,
     setArtwork,
     refreshDisabledAgainst(otherId) {
-      lastDisabledId = otherId;
-      // Si el panel sigue en modo búsqueda y ya tiene una cascada
-      // renderizada, la re-pintamos para reflejar el nuevo disabled
-      // sin tener que volver a pegarle a la API.
       if (!currentArtwork && lastCascadeArtworks.length > 0) {
         const resultsArea = body.querySelector('.compare-results');
         if (resultsArea) _renderCascade(resultsArea, lastCascadeArtworks);

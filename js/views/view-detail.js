@@ -71,6 +71,12 @@ function _renderArtwork(container, artwork) {
       thumb.src = src;
       thumb.alt = `Imagen adicional de ${artwork.title || 'la obra'}`;
       thumb.loading = 'lazy';
+
+      thumb.style.cursor = 'pointer';
+      thumb.addEventListener('click', () => {
+        _changeMainImage(imageCol, src, artwork.title || 'Obra sin título');
+      });
+
       stripe.appendChild(thumb);
     });
     imageCol.appendChild(stripe);
@@ -193,10 +199,37 @@ function _buildBackButton() {
   backBtn.className = 'btn btn-secondary detail-back-btn';
   backBtn.textContent = '← Volver';
   backBtn.addEventListener('click', () => {
-    // history.back() conserva el scroll/estado de la vista anterior
-    // (filtros de #explore, página del artista, etc.) mejor que
-    // navegar directo a una ruta fija.
     window.history.back();
   });
   return backBtn;
+}
+
+/**
+ * Cambia la fuente de la imagen principal activa.
+ * Si no existía una imagen principal previa (había placeholder), la construye de cero.
+ * @param {HTMLElement} imageCol - El contenedor de la columna de imágenes.
+ * @param {string} newSrc - La URL de la nueva imagen a mostrar.
+ * @param {string} altTitle - El título de la obra para el atributo alt.
+ */
+function _changeMainImage(imageCol, newSrc, altTitle) {
+  const mainImg = imageCol.querySelector('.detail-main-frame img');
+
+  if (mainImg) {
+    mainImg.src = newSrc;
+  } else {
+    const placeholder = imageCol.querySelector('.detail-image-placeholder');
+    if (placeholder) {
+      placeholder.remove();
+    }
+
+    const mainFrame = document.createElement('div');
+    mainFrame.className = 'detail-main-frame';
+
+    const newImg = document.createElement('img');
+    newImg.src = newSrc;
+    newImg.alt = altTitle;
+
+    mainFrame.appendChild(newImg);
+    imageCol.insertBefore(mainFrame, imageCol.firstChild);
+  }
 }

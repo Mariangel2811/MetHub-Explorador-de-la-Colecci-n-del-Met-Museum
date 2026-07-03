@@ -1,24 +1,8 @@
-/* ==========================================================================
-   styles.css — Vitrae
-   ---------------------------------------------------------------------
-   Dirección visual: catedral gótica — piedra fría bajo luz de luna,
-   metal deslucido (plata vieja, no oro) y un único acento de vino
-   tinto profundo. Una sola familia de color por función, no un
-   mosaico de vitral multicolor: la idea es que se sienta solemne y
-   fría, no decorativa.
-   El arco ojival (apuntado) sigue siendo la firma que se repite en
-   botones, tarjetas, marcos de imagen y el spinner de carga — eso no
-   cambió, solo la paleta.
-   ========================================================================== */
+
 
 @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
 
 :root {
-  /* Color — piedra fría, plata deslucida, vino tinto.
-     Nota: los nombres de variable (--color-gold, --color-crimson, etc.)
-     se mantienen tal cual estaban por todo el archivo para no tener
-     que tocar cientos de referencias; lo que cambió es el VALOR de
-     cada una. --color-gold ahora es plata, no oro. */
   --color-bg: #0b0b0d;              /* piedra casi negra, fría */
   --color-bg-raised: #141417;       /* piedra un escalón más clara */
   --color-surface: #18181c;         /* superficie de tarjetas */
@@ -43,14 +27,7 @@
   --nav-height: 72px;
   --max-width: 1200px;
   --radius: 3px;
-  /* Arco ojival vía border-radius (no clip-path): border-radius nunca
-     borra contenido, solo redondea la esquina — así el texto de un
-     botón o el borde de una pintura nunca quedan cortados, sin
-     importar el tamaño real del elemento.
-     --arch-btn: arco pronunciado, pensado para botones (cajas chicas).
-     --arch-frame: arco apenas insinuado en las esquinas superiores,
-     pensado para imágenes de obras — tiene que taparse lo mínimo
-     posible de la pintura. */
+
   --arch-btn: 50% 50% 4px 4px / 60px 60px 4px 4px;
   --arch-frame: 40px 40px 4px 4px / 22px 22px 4px 4px;
   --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(168, 169, 180, 0.06);
@@ -69,18 +46,6 @@ body {
   font-family: var(--font-body);
   line-height: 1.6;
 
-  /* Fondo: foto real de una catedral gótica (interior de la nave de
-     la Catedral de San Vito, Praga). Fuente: Wikimedia Commons, foto
-     de DXR, licencia CC BY-SA 4.0 — atribución obligatoria, ver
-     crédito en el footer de index.html.
-     https://commons.wikimedia.org/wiki/File:Interior_of_St._Vitus_Cathedral,_Nave,_Prague_20160809_2.jpg
-     Capas de atrás hacia adelante:
-     1) la foto en sí (cover, centrada, fija al hacer scroll)
-     2) una pátina de color que la funde con la paleta del sitio
-        (si no, la foto de piedra clara/beige choca con los paneles
-        oscuros de plata y vino)
-     3) viñeta: oscurece bordes para que el contenido central respire
-        y haya contraste suficiente en los paneles semi-transparentes */
   background-image:
     radial-gradient(ellipse 90% 75% at 50% 30%, transparent 35%, rgba(4, 4, 6, 0.75) 100%),
     linear-gradient(rgba(11, 11, 13, 0.72), rgba(11, 11, 13, 0.72)),
@@ -307,9 +272,6 @@ loading-state {
   }
 }
 
-/* ---------------------------------------------------------------------
-   ErrorState — vitral quebrado (acento carmesí)
-   --------------------------------------------------------------------- */
 error-state {
   display: flex;
   flex-direction: column;
@@ -760,13 +722,18 @@ error-state {
   border-radius: var(--arch-frame);
   overflow: hidden;
   background: var(--color-bg-raised);
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .detail-main-frame img {
+  object-fit: contain;
   width: 100%;
+  height: 100%;
+  max-height: 400px;
   display: block;
-  max-height: 560px;
-  object-fit: cover;
 }
 
 .detail-image-placeholder {
