@@ -90,19 +90,19 @@ El proyecto se desarrolla con HTML, CSS y JavaScript vanilla, sin frameworks ext
 ## Capturas
 
 Home: 
-![alt text](home.png)
+![alt text](image/home.png)
 
 Explore:
-![alt text](explore.png)
+![alt text](image/explore.png)
 
 Detail:
-![alt text](detail.png)
+![alt text](image/detail.png)
 
 Departments:
-![alt text](departments.png)
+![alt text](image/departments.png)
 
 Artist:
-![alt text](artist.png)
+![alt text](image/artist.png)
 
 Compare:
-![alt text](compare.png)
+![alt text](image/compare.png)
